@@ -20,7 +20,14 @@ namespace TextualAnalysis
             // s = "all the faith he had had had had no effect."
 
             // remove punctuation
-            
+            var cleanString = Regex.Replace(s, @"[^\w\s]", "");
+
+            var words = cleanString.ToLower()
+                                    .Split()
+                                    .Where(s => s != "");
+
+            string[] stopWords = GetStopWordsFromFile(stopWordFilePath);
+
             // split the string into words (filtering out the empty strings)
 
 
@@ -31,9 +38,10 @@ namespace TextualAnalysis
         public static Dictionary<string, int> ComputeWordFrequenciesFromFile(string path, bool ignoreStopWords = false)
         {
             // read in the file
+            string text = System.IO.File.ReadAllText(path);
 
             // call the other method
-
+      
             // return the result of the other method
 
             return null;
