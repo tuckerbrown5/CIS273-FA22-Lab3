@@ -7,7 +7,7 @@ namespace TextualAnalysis
 {
     public class TextualAnalysis
     {
-        public static string stopWordFilePath = "../../../Data/test.txt";
+        public static string stopWordFilePath = "../../../Data/stop-words.txt";
 
         public TextualAnalysis()
         {
@@ -29,7 +29,31 @@ namespace TextualAnalysis
             string[] stopWords = GetStopWordsFromFile(stopWordFilePath);
 
             // split the string into words (filtering out the empty strings)
+            HashSet<string> rex = new HashSet<string>();
 
+            foreach(var word in stopWords)
+            {
+                rex.Add(word);
+            }
+             foreach(var tex in words)
+            {
+                if (rex.Contains(tex) && ignoreStopWords == true)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (wordCounts.ContainsKey(tex))
+                    {
+                        wordCounts[tex]++;
+                    }
+                    else
+                    {
+                        wordCounts.Add(tex, 1);
+                    }
+                    
+                }
+            }
 
             return wordCounts;
         }
@@ -41,10 +65,11 @@ namespace TextualAnalysis
             string text = System.IO.File.ReadAllText(path);
 
             // call the other method
+            var wordCount = ComputeWordFrequencies(text, ignoreStopWords);
       
             // return the result of the other method
 
-            return null;
+            return wordCount;
         }
 
         private static string[] GetStopWordsFromFile(string path)

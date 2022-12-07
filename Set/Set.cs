@@ -13,13 +13,28 @@ namespace Set
             hashSet = new HashSet<T>();
         }
 
-        public int Size => throw new NotImplementedException();
+        public int Size => hashSet.Count;
 
-        public List<T> Elements => throw new NotImplementedException();
+        public List<T> Elements
+        {
+            get
+            {
+                List<T> elements = new List<T>();
+
+                foreach (var element in hashSet)
+                {
+                    Elements.Add(element);
+                }
+                return elements;
+            }
+        }
 
         public void Add(ISet<T> s)
         {
-            throw new NotImplementedException();
+            foreach( var rex in s)
+            {
+                this.Add(rex);
+            }
         }
 
         public void Add(T value)
@@ -29,17 +44,28 @@ namespace Set
 
         public bool Contains(T value)
         {
-            throw new NotImplementedException();
+            foreach(var mist in hashSet)
+            {
+                if(mist.Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Remove(ISet<T> s)
         {
-            throw new NotImplementedException();
+            foreach (var tex in s)
+            {
+                this.Remove(tex);
+            }
+
         }
 
         public void Remove(T value)
         {
-            throw new NotImplementedException();
+            hashSet.Remove(value);
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -54,12 +80,32 @@ namespace Set
 
         public static Set<T> Union(ISet<T> set1, ISet<T> set2)
         {
-            return null;
+            Set<T> union = new Set<T>();
+
+            foreach (var kix in set1)
+            {
+                union.Add(kix);
+            }
+
+            foreach (var kix in set2)
+            {
+                union.Add(kix);
+            }
+            return union;
         }
 
         public static Set<T> Intersection(ISet<T> set1, ISet<T> set2)
         {
-            return null;
+            Set<T> inter = new Set<T>();
+
+            foreach(var tick in set1)
+            {
+                if (set2.Contains(tick))
+                {
+                    inter.Add(tick);
+                }
+            }
+            return inter;
         }
     }
 }

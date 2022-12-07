@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace StringUtilities
 {
@@ -7,11 +8,21 @@ namespace StringUtilities
     {
         public static bool IsUniqueCharacterSet(this string s)
         {
-            // remove all space chars from string
+            var cleanString = Regex.Replace(s, @"\s+" , "");
 
-            // check for duplicate letters
+            HashSet<char> hashset = new HashSet<char>();
 
-            return false;
+            foreach (var letter in cleanString.ToLower())
+            {
+                if (hashset.Contains(letter))
+                {
+                    return false;
+                }
+
+                hashset.Add(letter);
+            }
+
+            return true;
         }
     }
 }
